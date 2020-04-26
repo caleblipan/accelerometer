@@ -10,7 +10,6 @@
     <style name="DarkTeal" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#004d4d</item>
         <item name="android:textSize">20dp</item>
-        <item name="android:letterSpacing">0.35</item>
     </style>
 
     <style name="smallBodyText" parent="TextAppearance.AppCompat">

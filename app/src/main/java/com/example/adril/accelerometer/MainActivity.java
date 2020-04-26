@@ -10,8 +10,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
-
+public class MainActivity extends AppCompatActivity implements SensorEventListener
+{
     private static final String TAG = "MainActivity";
 
     private SensorManager sensorManager;
@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     TextView xValue, yValue, zValue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -37,12 +38,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
+    public void onAccuracyChanged(Sensor sensor, int i) {}
 
     @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
+    public void onSensorChanged(SensorEvent sensorEvent)
+    {
         Log.d(TAG, "onSensorChanged: X: " + sensorEvent.values[0] + " Y: " + sensorEvent.values[1] + " Z: " + sensorEvent.values[2]);
 
         xValue.setText("xValue: " + sensorEvent.values[0]);

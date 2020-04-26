@@ -12,19 +12,37 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="The Accelerometer"
+            style="@style/DarkTeal"
+    />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The device changes the values below every time you move your phone."
+            style="@style/smallBodyText"
+    />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/xValue"
-            android:layout_margin="30sp"
+            android:layout_marginTop="24sp"
+            android:padding="16sp"
+            android:background="@drawable/back"
     />
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/yValue"
-            android:layout_margin="30sp"
+            android:layout_marginTop="24sp"
+            android:padding="16sp"
+            android:background="@drawable/back"
     />
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/zValue"
-            android:layout_margin="30sp"
+            android:layout_marginTop="24sp"
+            android:padding="16sp"
+            android:background="@drawable/back"
     />
 </LinearLayout>

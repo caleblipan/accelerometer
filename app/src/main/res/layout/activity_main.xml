@@ -12,37 +12,39 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The Accelerometer"
-            style="@style/DarkTeal"
+            android:text="Activity Tracker"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="26sp"
     />
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The device changes the values below every time you move your phone."
-            style="@style/smallBodyText"
-    />
+            android:text="Using the accelerometer, it will detect and output the number of steps you've taken"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+    />\
     <TextView
+            android:id="@+id/tv_steps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/xValue"
-            android:layout_marginTop="24sp"
-            android:padding="16sp"
+            android:gravity="center"
+    />
+    <Button
+            android:id="@+id/btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:text="Start Tracker"
             android:background="@drawable/back"
+            android:textColor="@color/colorPrimaryDark"
     />
-    <TextView
+    <Button
+            android:id="@+id/btn_stop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/yValue"
-            android:layout_marginTop="24sp"
-            android:padding="16sp"
-            android:background="@drawable/back"
-    />
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/zValue"
-            android:layout_marginTop="24sp"
-            android:padding="16sp"
-            android:background="@drawable/back"
+            android:layout_marginTop="16sp"
+            android:text="Stop Tracker"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/whiteFontColor"
     />
 </LinearLayout>

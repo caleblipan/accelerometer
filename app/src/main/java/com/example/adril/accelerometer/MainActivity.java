@@ -6,47 +6,75 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.content.Context;
-import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener
+public class MainActivity extends AppCompatActivity implements SensorEventListener, StepListener
 {
-    private static final String TAG = "MainActivity";
-
+    private TextView textView;
+    private StepDetector simpleStepDetector;
     private SensorManager sensorManager;
-    Sensor accelerometer;
-
-    TextView xValue, yValue, zValue;
+    private Sensor accel;
+    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
+    private int numSteps;
+    TextView TvSteps;
+    TextView BtnStart;
+    TextView BtnStop;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        xValue = (TextView) findViewById(R.id.xValue);
-        yValue = (TextView) findViewById(R.id.yValue);
-        zValue = (TextView) findViewById(R.id.zValue);
+        // Get an instance of the SensorManager
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
 
-        Log.d(TAG, "Initializing Sensor Services");
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        TvSteps = (TextView) findViewById(R.id.tv_steps);
+        BtnStart = (Button) findViewById(R.id.btn_start);
+        BtnStop = (Button) findViewById(R.id.btn_stop);
 
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        Log.d(TAG, "Accelerometer listener registered");
+        BtnStart.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                numSteps = 0;
+                sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+            }
+        });
+
+
+        BtnStop.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View arg0)
+            {
+                sensorManager.unregisterListener(MainActivity.this);
+            }
+        });
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {}
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override
-    public void onSensorChanged(SensorEvent sensorEvent)
+    public void onSensorChanged(SensorEvent event)
     {
-        Log.d(TAG, "onSensorChanged: X: " + sensorEvent.values[0] + " Y: " + sensorEvent.values[1] + " Z: " + sensorEvent.values[2]);
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            simpleStepDetector.updateAccel(
+                    event.timestamp, event.values[0], event.values[1], event.values[2]);
+        }
+    }
 
-        xValue.setText("xValue: " + sensorEvent.values[0]);
-        yValue.setText("yValue: " + sensorEvent.values[1]);
-        zValue.setText("zValue: " + sensorEvent.values[2]);
+    @Override
+    public void step(long timeNs)
+    {
+        numSteps++;
+        TvSteps.setText(TEXT_NUM_STEPS + numSteps);
     }
 }
